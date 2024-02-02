@@ -38,13 +38,10 @@ func (cmd *TicTacToeCommand) Execute(s *discordgo.Session, m *discordgo.MessageC
 
 	// Handle starting a new game
 	if args[1] == "start" {
-		// Start a new game only if there isn't already an active game in the channel
-		if _, exists := cmd.ActiveGames[m.ChannelID]; !exists {
-			cmd.ActiveGames[m.ChannelID] = NewTicTacToeGame()
-			s.ChannelMessageSend(m.ChannelID, "New Tic Tac Toe game started! Use `-tictactoe x y` to make your move.")
-		} else {
-			s.ChannelMessageSend(m.ChannelID, "A game is already in progress. Finish it before starting a new one.")
-		}
+		newGame := NewTicTacToeGame()
+		// Optionally set the first player (authorID) as Player X or wait for the first move
+		cmd.ActiveGames[m.ChannelID] = newGame
+		s.ChannelMessageSend(m.ChannelID, "New Tic Tac Toe game started!")
 		return
 	}
 
@@ -68,7 +65,7 @@ func (cmd *TicTacToeCommand) Execute(s *discordgo.Session, m *discordgo.MessageC
 		return
 	}
 
-	err = game.PlayMove(x, y)
+	err = game.PlayMove(x, y, m.Author.ID)
 	if err != nil {
 		s.ChannelMessageSend(m.ChannelID, err.Error())
 		return
@@ -92,7 +89,7 @@ func (cmd *TicTacToeCommand) botMove(game *TicTacToeGame, s *discordgo.Session, 
 		x = rand.Intn(3)
 		y = rand.Intn(3)
 		if game.Board[x][y] == Empty {
-			_ = game.PlayMove(x, y)
+			_ = game.PlayMove(x, y, m.Author.ID)
 			break
 		}
 	}
