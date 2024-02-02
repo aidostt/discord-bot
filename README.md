@@ -13,7 +13,7 @@ git clone git@github.com:aidostt/discord-bot.git
 
 Add this to your system's variables:
 ```
-DISCORD_BOT_TOKEN: MTIwMjg2NTg3ODM1NDQ5MzQ0MQ.GBfbiv.8erBTUikrLSla2pPoiXP-0P1EtDxsTpvIOGC6M
+DISCORD_BOT_TOKEN: ask the owner for the token
 OPENWEATHERMAP_API_KEY: 627a1ab7bcc88b03062200758ef06771
 ```
 
