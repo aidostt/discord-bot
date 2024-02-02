@@ -25,7 +25,7 @@ type WeatherClient struct {
 // NewWeatherClient creates a new instance of WeatherClient.
 func NewWeatherClient() *WeatherClient {
 	return &WeatherClient{
-		APIKey: os.Getenv("OPENWEATHERMAP_API_KEY"), // Ensure you have set this environment variable
+		APIKey: os.Getenv("OPENWEATHERMAP_API_KEY"),
 	}
 }
 

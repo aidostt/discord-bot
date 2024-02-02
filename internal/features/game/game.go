@@ -17,8 +17,8 @@ type TicTacToeGame struct {
 	Board     [3][3]Player
 	Turn      Player
 	Winner    Player
-	PlayerXID string // Discord ID of the player playing as X
-	PlayerOID string // Discord ID of the player playing as O
+	PlayerXID string
+	PlayerOID string
 	Mutex     sync.Mutex
 }
 
@@ -38,7 +38,6 @@ func (g *TicTacToeGame) PlayMove(x, y int, authorID string) error {
 	g.Mutex.Lock()
 	defer g.Mutex.Unlock()
 
-	// Ensure the move is made by the correct player
 	if (g.Turn == PlayerX && authorID != g.PlayerXID) || (g.Turn == PlayerO && authorID != g.PlayerOID) {
 		return errors.New("it's not your turn")
 	}

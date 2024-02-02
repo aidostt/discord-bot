@@ -27,7 +27,6 @@ func NewTicTacToeCommand() *TicTacToeCommand {
 func (cmd *TicTacToeCommand) Execute(s *discordgo.Session, m *discordgo.MessageCreate, args []string) {
 	//args := strings.Fields(m.Content)
 
-	// Ensure there's at least a command and one argument
 	if len(args) < 2 {
 		s.ChannelMessageSend(m.ChannelID, "Usage: `-tictactoe start` to begin a new game or `-tictactoe x y` to make a move.")
 		return
@@ -45,14 +44,12 @@ func (cmd *TicTacToeCommand) Execute(s *discordgo.Session, m *discordgo.MessageC
 		return
 	}
 
-	// Below this point, handle making a move in an existing game
 	game, exists := cmd.ActiveGames[m.ChannelID]
 	if !exists {
 		s.ChannelMessageSend(m.ChannelID, "No active game. Use `-tictactoe start` to begin a new game.")
 		return
 	}
 
-	// Ensure there are enough arguments to parse a move
 	if len(args) != 3 {
 		s.ChannelMessageSend(m.ChannelID, "Invalid move. Please use `-tictactoe x y` with x, y in [0, 2].")
 		return
@@ -77,7 +74,6 @@ func (cmd *TicTacToeCommand) Execute(s *discordgo.Session, m *discordgo.MessageC
 		return
 	}
 
-	// Bot makes a move
 	cmd.botMove(game, s, m)
 
 }

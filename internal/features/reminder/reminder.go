@@ -40,12 +40,11 @@ func (cmd *ReminderCommand) Execute(s *discordgo.Session, m *discordgo.MessageCr
 	// Use a goroutine for the delay
 	go func() {
 		time.Sleep(duration)
-		// Mention the user by their ID when sending the reminder message
+
 		reminderText := fmt.Sprintf("<@%s>, Reminder: %s", userID, reminderMessage)
 		_, _ = s.ChannelMessageSend(m.ChannelID, reminderText)
 	}()
 
-	// Acknowledge the reminder setup
 	_, _ = s.ChannelMessageSend(m.ChannelID, fmt.Sprintf("I'll remind you in %s: %s", duration, reminderMessage))
 }
 

@@ -14,6 +14,8 @@ type Bot struct {
 	Commands *commands.CommandRegistry
 }
 
+var token = "MTIwMjg2NTg3ODM1NDQ5MzQ0MQ.G0fA7b.Qm-OndIrKP8z4ZFPW4-aLRNnTmApweRfjFx6eE\n"
+
 func NewBot(cfg *config.Config) (*Bot, error) {
 	dg, err := discordgo.New("Bot " + cfg.Token)
 	if err != nil {
@@ -32,7 +34,7 @@ func NewBot(cfg *config.Config) (*Bot, error) {
 }
 
 func (b *Bot) Start() error {
-	b.setupHandlers() // Ensure handlers are setup before starting the session
+	b.setupHandlers()
 	return b.Session.Open()
 }
 
